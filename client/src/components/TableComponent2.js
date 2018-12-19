@@ -19,7 +19,6 @@ class TableComponent2 extends Component {
   componentDidMount(e) {
     this.getAgents();
     setInterval(this.getAgents, 60000);
-    //this.getAgents();
   }
 
   getAgents() {

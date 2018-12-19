@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-
-import TableComponent from "./components/TableComponent";
 import TableComponent2 from "./components/TableComponent2";
 
 import "./App.css";
