@@ -7,10 +7,6 @@ import "./App.css";
 
 let currentTime = new Date().getTime();
 
-const URL =
-  "https://oma-gtsts-001.paypalcorp.com/AvayaMonitorScreensSvc/api/index.php?METHOD=getOmahaL1AvayaStats&_=" +
-  currentTime;
-
 class App extends Component {
   constructor(props) {
     super(props);
