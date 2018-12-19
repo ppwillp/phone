@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
-
+import keys from "../keys/url";
 import axios from "axios";
 
-const URL =
-  "https://oma-gtsts-001.paypalcorp.com/AvayaMonitorScreensSvc/api/index.php?METHOD=getOmahaL1AvayaStats&_=";
+const URL = keys.url;
 
 class TableComponent2 extends Component {
   constructor(props) {
