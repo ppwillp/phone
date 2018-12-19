@@ -23,7 +23,6 @@ class App extends Component {
     return (
       <div className="App">
         <h1>MTS Phone Queue</h1>
-        <TableComponent />
         <TableComponent2 />
       </div>
     );

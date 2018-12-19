@@ -2,11 +2,9 @@ import React, { Component } from "react";
 import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 
 import axios from "axios";
-let currentTime = new Date().getTime();
 
 const URL =
-  "https://oma-gtsts-001.paypalcorp.com/AvayaMonitorScreensSvc/api/index.php?METHOD=getOmahaL1AvayaStats&_=" +
-  currentTime;
+  "https://oma-gtsts-001.paypalcorp.com/AvayaMonitorScreensSvc/api/index.php?METHOD=getOmahaL1AvayaStats&_=";
 
 class TableComponent2 extends Component {
   constructor(props) {
@@ -20,16 +18,20 @@ class TableComponent2 extends Component {
   }
 
   componentDidMount(e) {
+    setInterval(this.getAgents, 60000);
     //this.getAgents();
-    let activeAgents = setInterval(this.getAgents, 3000);
   }
 
   getAgents() {
+    let currentTime = new Date().getTime();
     axios
-      .get(URL)
+      .get(URL + currentTime)
+
       .then(response => {
         if (response.data.AGENT.has_results === 0) {
-          this.setState({ none: "No agents online" });
+          this.setState({ none: response.data.AGENT });
+          console.log("empty");
+          console.log(response.data);
         } else {
           this.setState({ agents: response.data.AGENT.agents });
           console.log(response.data);
@@ -43,10 +45,7 @@ class TableComponent2 extends Component {
     return (
       <div className="container">
         <BootstrapTable data={agents} version="4" striped>
-          <TableHeaderColumn isKey dataField="id">
-            ID
-          </TableHeaderColumn>
-          <TableHeaderColumn dataField="display_name">
+          <TableHeaderColumn isKey dataField="display_name">
             Display Name
           </TableHeaderColumn>
           <TableHeaderColumn dataField="state">State</TableHeaderColumn>
@@ -56,39 +55,5 @@ class TableComponent2 extends Component {
     );
   }
 }
-
-/*class TableRow2 extends React.Component {
-    constructor(props) {
-        super(props);
-        this.setState = {
-            agents: [],
-            errors: {},
-            none: {}
-        }
-        this.getAgents = this.getAgents.bind(this);
-    }
-
-    componentDidMount(e) {
-        //this.getAgents();
-        let activeAgents = setInterval(this.getAgents, 3000);
-      }
-    
-      getAgents() {
-        axios
-          .get(URL)
-          .then(response => {
-            if (response.data.AGENT.has_results === 0) {
-              this.setState({ none: "No agents online" });
-            } else {
-              this.setState({ agents: response.data.AGENT.agents });
-              console.log(response.data);
-            }
-          })
-          .catch(err => this.setState({ errors: err }));
-      }
-  render() {
-    return <div />;
-  }
-}*/
 
 export default TableComponent2;
